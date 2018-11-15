@@ -5,7 +5,9 @@
  * Date: 2018/11/15
  * Time: 8:23
  */
+
 namespace KeepXin\Lumen;
+
 use Laravel\Lumen\Concerns\RoutesRequests as LumenRoutesRequests;
 
 use Exception;
@@ -27,7 +29,7 @@ trait RoutesRequests
 
         $version = $this->getVersion($request);
         $router = $this->router->getRoutes();
-        if(!isset($router[$version]) || !$router[$version]){
+        if (!isset($router[$version]) || !$router[$version]) {
             throw new \RuntimeException('unknown route version');
         }
         $router = $router[$version];
@@ -35,12 +37,12 @@ trait RoutesRequests
         try {
             $this->boot();
 
-            return $this->sendThroughPipeline($this->middleware, function () use ($method, $pathInfo,$router) {
+            return $this->sendThroughPipeline($this->middleware, function () use ($method, $pathInfo, $router) {
                 if (isset($router[$method . $pathInfo])) {
                     return $this->handleFoundRoute([true, $router[$method . $pathInfo]['action'], []]);
                 }
                 return $this->handleDispatcherResponse(
-                    $this->createDispatcher()->dispatch($method, $pathInfo)
+                    $this->createDispatcher($router)->dispatch($method, $pathInfo)
                 );
             });
         } catch (Exception $e) {
@@ -50,12 +52,26 @@ trait RoutesRequests
         }
     }
 
+    /**
+     * Create a FastRoute dispatcher instance for the application.
+     *
+     * @return Dispatcher
+     */
+    protected function createDispatcher($router)
+    {
+        return $this->dispatcher ?: \FastRoute\simpleDispatcher(function ($r) use ($router) {
+            foreach ($router as $route) {
+                $r->addRoute($route['method'], $route['uri'], $route['action']);
+            }
+        });
+    }
+
     public function getVersion($request){
         if (! $request) {
             $request = LumenRequest::capture();
         }
 
-        return  $request->header('version', '1');
+        return $request->header('version', '1');
     }
 
 
