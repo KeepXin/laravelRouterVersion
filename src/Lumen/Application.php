@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace KeepXin\Lumen;
 
 /**
  * Created by PhpStorm.
@@ -8,11 +8,11 @@ namespace App;
  * Date: 2018/11/14
  * Time: 22:25
  */
-use Laravel\Lumen\Application;
+use Laravel\Lumen\Application as LumenApplication;
 
-class LumenApplication extends Application
+class Application extends LumenApplication
 {
-    use LumenRoutesRequests;
+    use RoutesRequests;
     public function __construct(?string $basePath = null)
     {
         parent::__construct($basePath);
@@ -25,7 +25,7 @@ class LumenApplication extends Application
      */
     public function bootstrapRouter()
     {
-        $this->router = new LumenRouter($this);
+        $this->router = new Router($this);
     }
 
 }

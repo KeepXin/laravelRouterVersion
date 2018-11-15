@@ -6,13 +6,13 @@
  * Time: 8:05
  */
 
-namespace App;
+namespace KeepXin\Lumen;
 
-use Laravel\Lumen\Routing\Router;
+use Laravel\Lumen\Routing\Router as LumenRouter;
 
-class LumenRouter extends Router
+class Router extends LumenRouter
 {
-    public function __construct(LumenApplication $app)
+    public function __construct(Application $app)
     {
         parent::__construct($app);
     }

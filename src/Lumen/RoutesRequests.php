@@ -5,17 +5,17 @@
  * Date: 2018/11/15
  * Time: 8:23
  */
-namespace App;
-use Laravel\Lumen\Concerns\RoutesRequests;
+namespace KeepXin\Lumen;
+use Laravel\Lumen\Concerns\RoutesRequests as LumenRoutesRequests;
 
 use Exception;
 use Throwable;
 use Laravel\Lumen\Http\Request as LumenRequest;
 
 
-trait LumenRoutesRequests
+trait RoutesRequests
 {
-    use RoutesRequests;
+    use LumenRoutesRequests;
 
     /**
      * @param null $request

@@ -1,7 +1,17 @@
 {
+    "name": "keepxin/routerversion",
+    "description": "A RouterVersion SDK",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "keepxin",
+            "email": "1300965809@qq.com"
+        }
+    ],
+    "require": {},
     "autoload": {
         "psr-4": {
-            "Keepxin\\Routerversion\\": "src"
+            "KeepXin\\": "./src"
         }
     }
 }
