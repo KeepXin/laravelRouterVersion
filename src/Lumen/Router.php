@@ -49,7 +49,7 @@ class Router extends LumenRouter
             if (isset($attributes['version'])) {
                 $version = $attributes['version'];
             } else {
-                $version = "v1";
+                $version = "1";
             }
 
             $action = $this->mergeGroupAttributes($action, $attributes);

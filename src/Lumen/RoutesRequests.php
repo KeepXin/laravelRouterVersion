@@ -55,7 +55,7 @@ trait RoutesRequests
             $request = LumenRequest::capture();
         }
 
-        return  $request->header('version', 'v1');
+        return  $request->header('version', '1');
     }
 
 
